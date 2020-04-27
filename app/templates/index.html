@@ -1,3 +1,5 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,6 +11,33 @@
         {% endif %}
     </head>
     <body>
+        {% block content %}
+              <!-- General News section  -->
+              <h3> General News</h3>
+        <ul>
+            {{ macro.displayNewsList(general)}}
+        </ul>
+         <!-- Tech related news  -->
+         <h3>  Technology related  </h3>
+         <ul>
+             {{ macro.displayNewsList(technology)}}
+         </ul>
+        
+         <h3>Sports related</h3>
+         <ul>
+             {{ macro.displayNewsList(sports)}}
+         </ul>
+         
+        <h3> Business </h3>
+        <ul>
+            {{ macro.displayMovieList(business)}}
+        </ul>
 
+        <h3>Entertainment</h3>
+        <ul>
+            {{ macro.displayNewsList(entertainment)}}
+        </ul>
+
+{% endblock%}
     </body>
 </html>

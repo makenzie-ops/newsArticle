@@ -4,7 +4,7 @@ class News:
     '''
 
     def __init__(self,id,title,overview,destcription ,poster,published_at,content):
-        self.id =id
+        self.id = id
         self.title = title
         self.destcription  = destcription 
         self.poster = 'https://image.tmdb.org/t/p/w500/'+ poster

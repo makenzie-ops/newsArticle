@@ -1,14 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        {% if title %}
-        <title> {{ title }}</title>
-        {% else %}
-        <title> Welcome to the best News Article website </title>
-        {% endif %}
-    </head>
-    <body>
+{% extends 'base.html'%}
+<!-- Content block -->
+{% block content %}
+<div class="container">
 
-    </body>
-</html>
+    <!-- Poster background -->
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 posterPath" style="background: url({{movie.poster}}) no-repeat center center">
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 movie-details">
+            <h3>{{ movie.title }}</h3>
+
+            <p class="description"> {{ news.description}}</p>
+            <div class="row">
+            <h1 class="date">{{news. published_at}}</h1>
+            <p class="content">{{news.content}}</p>
+            </div>
+          
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

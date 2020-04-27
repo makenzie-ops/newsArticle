@@ -1,7 +1,6 @@
 import urllib.request,json
-from .models import Article
+from .models import Article,Source
 
-Article = article.Article
 
 # Getting api key
 api_key = None
@@ -25,8 +24,8 @@ def get_Source_news(category):
 
         news_results = None
 
-        if get_news_response['results']:
-            news_results_list = get_news_response['results']
+        if get_news_response['sources']:
+            news_results_list = get_news_response['sources']
             news_results = process_results(news_results_list)
 
 
@@ -37,10 +36,10 @@ def process_results(news_list):
         Function  that processes the news result and transform them to a list of Objects
 
     Args:
-        news_list: A list of dictionaries that contain movie details
+        news_list: A list of dictionaries that contain news details
 
     Returns :
-        news_results: A list of movie objects
+        news_results: A list of news objects
     '''
     
     news_results = []
@@ -48,12 +47,11 @@ def process_results(news_list):
         id = news_item.get('id')
         title = news_item.get('original_title')
         description = news_item.get('description')
-        poster = news_item.get('poster_path')
         published_at = news_item.get('published_at')
         content= news_item.get('content')
 
-        if poster:
-            news_object = Article(id,title,description,poster,published_at,content)
+        if description:
+            news_object = Article(id,title,description,published_at,content)
             news_results.append(news_object)
 
     return news_results

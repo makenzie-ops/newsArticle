@@ -1,7 +1,7 @@
 import urllib.request,json
 from .models import Article
 
-News = news.News
+Article = article.Article
 
 # Getting api key
 api_key = None
@@ -12,7 +12,7 @@ def configure_request(app):
     global api_key,base_url
     api_key = app.config['MOVIE_API_KEY']
     base_url = app.config['MOVIE_API_BASE_URL']
-    
+
 def get_Source_news(category):
     '''
     Function that gets the json response to our url request
@@ -53,7 +53,7 @@ def process_results(news_list):
         content= news_item.get('content')
 
         if poster:
-            news_object = News(id,title,destcription,poster,published_at,content)
+            news_object = Article(id,title,description,poster,published_at,content)
             news_results.append(news_object)
 
     return news_results
@@ -74,6 +74,6 @@ def get_news(id):
             published_at= news_details_response.get('published_at')
             content= news_details_response.get('content')
 
-            news_object = News(id,title,description,poster,published_at,content)
+            news_object = Article(id,title,description,poster,published_at,content)
 
     return news_object

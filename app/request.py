@@ -1,11 +1,13 @@
+# from app import app
 import urllib.request,json
 from .models import Article
 from .models import Source
 
 # Getting api key
-api_key = None
+api_key = '2d7e55cf5e324b4c98a4a1ee81d40ffd'
 # Getting the movie base url
 base_url = None
+article_url = None
 
 def configure_request(app):
     global api_key,base_url,article_url
@@ -14,13 +16,13 @@ def configure_request(app):
     article_url = app.config['ARTICLE_BASE_URL']
 
 def get_Source_news(category):
+    get_Source_news = base_url.format(category, api_key)
     print(get_Source_news)
-
     with urllib.request.urlopen(get_Source_news) as url:
         get_news_data = url.read()
         get_news_response = json.loads(get_news_data)
 
-        news_results = ' '
+        news_results =None
 
         if get_news_response.get('results'):
             news_results_list = get_news_response['results']
@@ -52,11 +54,7 @@ def get_article(id):
 
 
     get_article_url= article_url.format(id,api_key)
-    print (get_article_url)
 
-
-    # get_article_url=article_url.format(id,api_key)
-    # print(get_article_url)
 
     with urllib.request.urlopen(get_article_url) as url:
 
@@ -84,3 +82,39 @@ def process_articles(article_list):
             article_object = Article(author,title,publishedAt,content,url)
             article_results.append(article_object)
         return article_results
+
+def get_category(categ_head):
+    '''
+    function that gets the response to the category json
+    '''
+    get_category_url = article_url.format(categ_head,api_key)
+    print(get_category_url)
+    with urllib.request.urlopen(get_category_url) as url:
+        get_category_data = url.read()
+        get_cartegory_response = json.loads(get_category_data)
+
+        get_cartegory_results = None
+
+        if get_cartegory_response['articles']:
+            get_cartegory_list = get_cartegory_response['articles']
+            get_cartegory_results =article_resultss(get_cartegory_list)
+
+    return get_cartegory_results
+
+def get_headlines():
+    '''
+    function that gets the response to the category json
+    '''
+    get_headlines_url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey={}'.format(api_key)
+    print(get_headlines_url)
+    with urllib.request.urlopen(get_headlines_url) as url:
+        get_headlines_data = url.read()
+        get_headlines_response = json.loads(get_headlines_data)
+
+        get_headlines_results = None
+
+        if get_headlines_response['articles']:
+            get_headlines_list = get_headlines_response['articles']
+            get_headlines_results = article_results(get_headlines_list)
+
+    return get_headlines_results

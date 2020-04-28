@@ -15,7 +15,7 @@ def configure_request(app):
     article_url = app.config['ARTICLE_BASE_URL']
 
 
-def get_source_news():
+def get_Source_news():
     '''
     Function that gets the json response to url request
     '''
@@ -53,21 +53,21 @@ def process_results(source_list):
 
     return source_results
 
-def article_source(id):
-    article_source_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'.format(id,api_key)
-    print(article_source_url)
-    with urllib.request.urlopen(article_source_url) as url:
-        article_source_data = url.read()
-        article_source_response = json.loads(article_source_data)
+def get_article(id):
+    get_article_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'.format(id,api_key)
+    print(get_article_url)
+    with urllib.request.urlopen(get_article_url) as url:
+        get_article_data = url.read()
+        get_article_response = json.loads(get_article_data)
 
-        article_source_results = None
+        get_article_results = None
 
-        if article_source_response['articles']:
-            article_source_list = article_source_response['articles']
-            article_source_results = process_articles_results(article_source_list)
+        if get_article_response['articles']:
+            get_article_list = get_article_response['articles']
+            get_article_results = process_articles_results( get_article_list)
 
 
-    return article_source_results
+    return   get_article_results
 
 def process_articles_results(news):
     '''

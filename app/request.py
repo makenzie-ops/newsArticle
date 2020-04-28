@@ -1,11 +1,10 @@
-# from app import app
 import urllib.request,json
-from .models import Article
-from .models import Source
+from .models import Article, Category, Source , Headlines
+
 
 # Getting api key
 api_key = '2d7e55cf5e324b4c98a4a1ee81d40ffd'
-source_url= None
+base_url= None
 
 article_url = None
 
@@ -20,7 +19,7 @@ def get_source_news():
     '''
     Function that gets the json response to url request
     '''
-    get_source_url= source_url.format(api_key)
+    get_source_url= base_url.format(api_key)
     # print(get_source_url)
     with urllib.request.urlopen(get_source_url) as url:
         get_sources_data = url.read()
@@ -93,7 +92,7 @@ def get_category(cat_name):
     '''
     function that gets the response to the category json
     '''
-    get_category_url = cat_url.format(cat_name,api_key)
+    get_category_url = article_url.format(cat_name,api_key)
     print(get_category_url)
     with urllib.request.urlopen(get_category_url) as url:
         get_category_data = url.read()

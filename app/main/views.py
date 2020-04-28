@@ -19,13 +19,9 @@ def index():
 
     return render_template('index.html',title = title,latest=latest_news)
 
-@main.route('/news/<int:id>')
-def news(id):
 
-    '''
-    View movie page function that returns the movie details page and its data
-    '''
-    news = get_news(id)
-    title = f'{news.title}'
-
-    return render_template('news.html',title = title, news =news)
+@main.route('/news/<id>')
+def article(id):
+    articles = get_news(id)
+    print(articles)
+    return render_template('articles.html' , article = article)

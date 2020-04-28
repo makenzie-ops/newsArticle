@@ -1,10 +1,10 @@
 class Source:
-    def __init__(self , id , name , description , pubishedAt, author, urlToImage, url):
+    def __init__(self , id , title , description , pubished_at, author, urlToImage, url):
         
         self.id = id
-        self.name = name
+        self.title = title
         self.description = description
-        self.pubishedAt = pubishedAt
+        self.pubished_at = pubished_at
         self.author = author
         self.urlToImage = urlToImage
         self.url = url

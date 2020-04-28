@@ -1,25 +1,41 @@
+
+ 
+<h1>Hello News {{id}} </h1>
 {% extends 'base.html'%}
-<!-- Content block -->
-{% block content %}
-<div class="container">
+{% import 'macros.html' as macro%}
+<!DOCTYPE html>
+<html lang="en">
 
-    <!-- Poster background -->
-    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 posterPath" style="background: url({{movie.poster}}) no-repeat center center">
-        </div>
+<head>
+    <meta charset="UTF-8">
+    {%if title% }
+    <title> {{ title }} </title>
+    {%else%}
+    <title>Habari Chap Chap </title>
+    {%endif%}
+</head>
 
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 movie-details">
-            <h3>{{ movie.title }}</h3>
+<body>
+    
+    {% block content % }
+    <h3>Trending News</h3>
+    <ul>
+        {{macro.displayNewsList(trending)}}
+    </ul>
+    {% endblock % }
 
-            <p class="description"> {{ news.description}}</p>
+    {% block content % }
+        <div class="container">
             <div class="row">
-            <h1 class="date">{{news. published_at}}</h1>
-            <p class="content">{{news.content}}</p>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 posterPath"
+                    style="background: url({{movie.poster}}) no-repeat center center">
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 movie-details">
+                    <h3>{{news.name}}</h3>
+    
+                    <p class="description">{{news.description}}</p>
+                </div>
             </div>
-          
-
         </div>
-    </div>
-
-</div>
-{% endblock %}
+    
+</body>

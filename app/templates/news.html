@@ -11,16 +11,16 @@
     {%if title% }
     <title> {{ title }} </title>
     {%else%}
-    <title>Habari Chap Chap </title>
+    <title> News Updater </title>
     {%endif%}
 </head>
 
 <body>
     
     {% block content % }
-    <h3>Trending News</h3>
+    <h3>Latest News</h3>
     <ul>
-        {{macro.displayNewsList(trending)}}
+        {{macro.displayNewsList(latest)}}
     </ul>
     {% endblock % }
 

@@ -17,7 +17,7 @@ def index():
     headlines = get_headlines
     print(headlines)
     
-    title = 'Home - Welcome to The best News Article Website Online'
+    title = 'Welcome to The best News Article Website Online'
 
     return render_template('index.html',title = title,latest=latest_news, headlines = get_headlines)
 

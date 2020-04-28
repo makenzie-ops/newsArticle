@@ -5,89 +5,95 @@ from .models import Source
 
 # Getting api key
 api_key = '2d7e55cf5e324b4c98a4a1ee81d40ffd'
-# Getting the movie base url
-base_url = None
+source_url= None
+
 article_url = None
 
 def configure_request(app):
     global api_key,base_url,article_url
     api_key = app.config['NEWS_API_KEY']
-    base_url =app.config['NEWS_API_BASE_URL']
+    base_url =app.config['SOURCES_API_BASE_URL']
     article_url = app.config['ARTICLE_BASE_URL']
 
-def get_Source_news(category):
-    get_Source_news = base_url.format(category, api_key)
-    print(get_Source_news)
-    with urllib.request.urlopen(get_Source_news) as url:
-        get_news_data = url.read()
-        get_news_response = json.loads(get_news_data)
 
-        news_results =None
-
-        if get_news_response.get('results'):
-            news_results_list = get_news_response['results']
-            news_results = process_results(news_results_list)
-
-        return news_results
-
-def process_results(news_list):
+def get_source_news():
     '''
-    Function that processes the news result and transform them to a list of object
+    Function that gets the json response to url request
     '''
-    news_results = []
-    for news_item in news_list:
-        id = news_item.get('id')
-        title = news_item.get('title')
-        description = news_item('description')
-        publishedAt = news_item('publishedAt')
-        author = news_item('author')
-        urlToImage = news_item('urlToImage')
-        url = news_item('url')
+    get_source_url= source_url.format(api_key)
+    # print(get_source_url)
+    with urllib.request.urlopen(get_source_url) as url:
+        get_sources_data = url.read()
+        get_sources_response = json.loads(get_sources_data)
 
-        if urlToImage:
-            news_object = Source(id,title,description,publishedAt,author,urlToImage,url)
-            news_results.append(news_object)
+        source_results = None
 
-        return news_results
+        if get_sources_response['sources']:
+            source_results_list = get_sources_response['sources']
+            source_results = process_results(source_results_list)
 
-def get_article(id):
+    return source_results
+
+def process_results(source_list):
+    '''
+    function to process results and transform them to a list of objects
+    Args:
+        source_list:dictionary cotaining source details
+    Returns:
+        source_results: A list of source objects
+    '''
+    source_results = []
+    for source_item in source_list:
+        id = source_item.get('id')
+        name = source_item.get('name')
+        description = source_item.get('description')
+        url = source_item.get('url')
+        if id:
+            source_object = Source(id,name,description,url)
+            source_results.append(source_object)
+
+    return source_results
+
+def article_source(id):
+    article_source_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'.format(id,api_key)
+    print(article_source_url)
+    with urllib.request.urlopen(article_source_url) as url:
+        article_source_data = url.read()
+        article_source_response = json.loads(article_source_data)
+
+        article_source_results = None
+
+        if article_source_response['articles']:
+            article_source_list = article_source_response['articles']
+            article_source_results = process_articles_results(article_source_list)
 
 
-    get_article_url= article_url.format(id,api_key)
+    return article_source_results
 
+def process_articles_results(news):
+    '''
+    function that processes the json files of articles from the api key
+    '''
+    article_source_results = []
+    for article in news:
+        author = article.get('author')
+        description = article.get('description')
+        time = article.get('publishedAt')
+        url = article.get('urlToImage')
+        image = article.get('url')
+        title = article.get ('title')
 
-    with urllib.request.urlopen(get_article_url) as url:
+        if url:
+            article_objects = Article(author,description,time,image,url,title)
+            article_source_results.append(article_objects)
 
-        get_article_data=url.read()
-        get_article_response= json.loads(get_article_data)
+    return article_source_results
 
-    article_results=None
-    if get_article_response['articles']:
-      article_results_list = get_article_response['articles']
-      article_results = process_articles(article_results_list)
-    return article_results
-
-def process_articles(article_list):
-  
-    article_results = []
-    for article_item in article_list:
-
-        author=article_item.get('author')
-        title= article_item.get('title')
-        publishedAt= article_item.get('publishedAt')
-        content = article_item.get('content')
-        url=article_item.get('url')
-
-        if title:
-            article_object = Article(author,title,publishedAt,content,url)
-            article_results.append(article_object)
-        return article_results
-
-def get_category(categ_head):
+def get_category(cat_name):
     '''
     function that gets the response to the category json
     '''
-    get_category_url = article_url.format(categ_head,api_key)
+    get_category_url = cat_url.format(cat_name,api_key)
     print(get_category_url)
     with urllib.request.urlopen(get_category_url) as url:
         get_category_data = url.read()
@@ -97,7 +103,7 @@ def get_category(categ_head):
 
         if get_cartegory_response['articles']:
             get_cartegory_list = get_cartegory_response['articles']
-            get_cartegory_results =article_resultss(get_cartegory_list)
+            get_cartegory_results = process_articles_results(get_cartegory_list)
 
     return get_cartegory_results
 
@@ -115,6 +121,6 @@ def get_headlines():
 
         if get_headlines_response['articles']:
             get_headlines_list = get_headlines_response['articles']
-            get_headlines_results = article_results(get_headlines_list)
+            get_headlines_results = process_articles_results(get_headlines_list)
 
     return get_headlines_results

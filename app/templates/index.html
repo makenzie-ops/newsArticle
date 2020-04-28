@@ -1,26 +1,53 @@
-<!DOCTYPE html>
-{% extends 'base.html'%}
-{% import 'macros.html' as macro%}
-
-<html>
-
-<head>
-    <meta charset="utf-8">
-    {% if title %}
-    <title> {{ title }}</title>
-    {% else %}
-    <title> Welcome to the news article website </title>
-    {% endif %}
-</head>
+{% extends 'base.html'%} {% block content %} {% block styles%} {{ super() }}
 
 <body>
-    {% block content %}
 
-    <h3>Latest News</h3>
-    <ul>
-        {{macro.displayNewsList(latest)}}
-    </ul>
-    {% endblock%}
-    
+      <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-3">
+          <div class="card-column">
+            <div class="card-header">
+              <h4>Browse News Sources</h4>
+            </div>
+            <div class="list-group list-group-flush scrolly">
+              <ul>
+                {% for source in sources %}
+                <a href="/article/{{source.id}}">
+                  <p class="text-capitalize text-muted">{{source.id}}</p>
+                </a>
+                {% endfor %}
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-10">
+          <h1 class="text-center"> HEADLINE NEWS </h3>
+          <div class="container">
+            <div class="card-columns">
+              {% for headlines in headlines %}
+
+              <div class="card">
+                <img class="card" src="{{headlines.image}}" alt="Card image cap" size="100px180">
+                <div class="card-body">
+                  <h5 class="card-title">{{headlines.author}}</h5>
+                  <p class="card-text">{{headlines.description}}</p>
+                  <a href="{{headlines.url}}"></a>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">Publish date:{{headlines.time}}</small>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+      </div>
+  </div>
+
 </body>
-</html>
+
+{% endblock %}

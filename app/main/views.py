@@ -37,6 +37,7 @@ def category(cat_name):
     category = get_category(cat_name)
     title = f'{cat_name}'
     cat = cat_name
+    print(cat)
 
     return render_template('categories.html',title = title,category = category, cat= cat_name)
 

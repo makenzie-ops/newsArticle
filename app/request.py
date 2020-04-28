@@ -3,7 +3,7 @@ from .models import Article, Category, Source , Headlines
 
 
 # Getting api key
-api_key = '2d7e55cf5e324b4c98a4a1ee81d40ffd'
+api_key =  None
 base_url= None
 
 article_url = None

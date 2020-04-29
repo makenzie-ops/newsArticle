@@ -54,7 +54,7 @@ def process_results(source_list):
     return source_results
 
 def get_article(id):
-    get_article_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'.format(id,api_key)
+    get_article_url =  'https://newsapi.org/v2/everything?q={}&apiKey={}'.format(id,api_key)
     #print(get_article_url)
     with urllib.request.urlopen(get_article_url) as url:
         get_article_data = url.read()
@@ -88,11 +88,11 @@ def process_articles_results(news):
 
     return article_source_results
 
-def get_category(cat_name):
+def get_category(article):
     '''
     function that gets the response to the category json
     '''
-    get_category_url = article_url.format(cat_name,api_key)
+    get_category_url =  'https://newsapi.org/v2/everything?q={}&apiKey={}'.format(article, api_key)
     #print(get_category_url)
     with urllib.request.urlopen(get_category_url) as url:
         get_category_data = url.read()

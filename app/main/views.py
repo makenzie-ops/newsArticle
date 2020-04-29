@@ -26,16 +26,29 @@ def article(id):
     return render_template('articles.html' , articles = articles)
 
 
-@main.route('/categories/<cat_name>')
-def category(cat_name):
-    '''
-    function to return the categories.html page and its content
-    '''
-    category = get_category(cat_name)
-    title = f'{cat_name}'
-    cat = cat_name
+@main.route('/technology')
+def tech_cat():
+    categories = get_category("technology")
+    return render_template('categories.html',categories = categories)
+@main.route('/business')
+def business_cat():
+    categories =  get_category("business")
+    return render_template('categories.html',categories = categories)
 
-    return render_template('categories.html',title = title,category = category, cat= cat_name)
+@main.route('/entertainment')
+def enta_cat():
+    categories =  get_category("/entertainment")
+    return render_template('categories.html',categories = categories)
+
+@main.route('/science')
+def science_cat():
+    categories =  get_category("science")
+    return render_template('categories.html',categories = categories)
+
+@main.route('/sports')
+def sport_cat():
+    categories =  get_category("sports")
+    return render_template('categories.html',categories = categories)
 
 
 

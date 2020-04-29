@@ -13,7 +13,7 @@
             </div>
             <div class="list-group list-group-flush scrolly">
               <ul>
-                {% for source in sources %}
+                {% for source in latest %}
                 <a href="/article/{{source.id}}">
                   <p class="text-capitalize text-muted">{{source.id}}</p>
                 </a>
@@ -28,17 +28,17 @@
           <h1 class="text-center"> HEADLINE NEWS </h3>
           <div class="container">
             <div class="card-columns">
-              {% for headlines in headlines %}
+              {% for headline in headlines %}
 
               <div class="card">
-                <img class="card" src="{{headlines.image}}" alt="Card image cap" size="100px180">
+                <img class="card" src="{{headline.image}}" alt="Card image cap" size="100px180">
                 <div class="card-body">
-                  <h5 class="card-title">{{headlines.author}}</h5>
-                  <p class="card-text">{{headlines.description}}</p>
-                  <a href="{{headlines.url}}"></a>
+                  <h5 class="card-title">{{headline.author}}</h5>
+                  <p class="card-text">{{headline.description}}</p>
+                  <a href="{{headline.url}}"></a>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">Publish date:{{headlines.time}}</small>
+                  <small class="text-muted">Publish date:{{headline.time}}</small>
                 </div>
               </div>
               {% endfor %}

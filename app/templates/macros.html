@@ -1,11 +1,11 @@
- {% macro displayNewsList (news_list) %}
+ {% macro displayNewsList(news_list) %}
 
 {% for news in news_list %}
     <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 news-card">
         <img src="{{news.urlToImage}}" alt="{{news.title}} image" class="img-responsive">
         <li class="text-center">
             <a href="/news/{{news.id}}">
-                {{news.name|truncate(10)}}</a>
+                {{news.title|truncate(10)}}</a>
         </li>
         <button type="submit" class="btn btn-success"> View Articles </button>
         <a href="{{ news.url }}" class="btn btn-primary">Articles...</a>

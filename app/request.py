@@ -26,13 +26,12 @@ def get_Source_news():
         get_sources_data = url.read()
         get_sources_response = json.loads(get_sources_data)
 
-        source_results = None
 
         if get_sources_response['sources']:
             source_results_list = get_sources_response['sources']
-            source_results = process_results(source_results_list)
+            source_res = process_results(source_results_list)
 
-    return source_results
+    return source_res
 
 def process_results(source_list):
     '''
@@ -56,7 +55,7 @@ def process_results(source_list):
 
 def get_article(id):
     get_article_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'.format(id,api_key)
-    print(get_article_url)
+    #print(get_article_url)
     with urllib.request.urlopen(get_article_url) as url:
         get_article_data = url.read()
         get_article_response = json.loads(get_article_data)
@@ -83,7 +82,7 @@ def process_articles_results(news):
         image = article.get('url')
         title = article.get ('title')
 
-        if url:
+        if title:
             article_objects = Article(author,description,time,image,url,title)
             article_source_results.append(article_objects)
 
@@ -94,7 +93,7 @@ def get_category(cat_name):
     function that gets the response to the category json
     '''
     get_category_url = article_url.format(cat_name,api_key)
-    print(get_category_url)
+    #print(get_category_url)
     with urllib.request.urlopen(get_category_url) as url:
         get_category_data = url.read()
         get_cartegory_response = json.loads(get_category_data)
@@ -112,12 +111,10 @@ def get_headlines():
     function that gets the response to the category json
     '''
     get_headlines_url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey={}'.format(api_key)
-    print(get_headlines_url)
+    #print(get_headlines_url)
     with urllib.request.urlopen(get_headlines_url) as url:
         get_headlines_data = url.read()
         get_headlines_response = json.loads(get_headlines_data)
-
-        get_headlines_results = None
 
         if get_headlines_response['articles']:
             get_headlines_list = get_headlines_response['articles']

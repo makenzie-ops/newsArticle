@@ -5,23 +5,26 @@
 
       <div class="container-fluid">
       <div class="row">
-
-        <div class="col-3">
-          <div class="card-column">
-            <div class="card-header">
-              <h4>Browse News Sources</h4>
-            </div>
-            <div class="list-group list-group-flush scrolly">
-              <ul>
-                {% for source in latest %}
-                <a href="/article/{{source.id}}">
-                  <p class="text-capitalize text-muted">{{source.id}}</p>
-                </a>
-                {% endfor %}
-              </ul>
-            </div>
-
+       <div class="col-md-4">
+        <div class="card-column">
+          <div class="card-header">
+            <h4>Browse News Sources</h4>
           </div>
+          <div class="list-group list-group-flush scrolly">
+            <ul>
+              {% for source in latest %}
+              <a href="{{source.url}}">
+                <p>{{source.id}}</p>
+              </a>
+              {% endfor %}
+            </ul>
+          </div>
+       </div>
+
+        
+          
+
+       
         </div>
 
         <div class="col-10">

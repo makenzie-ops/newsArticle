@@ -11,7 +11,7 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    # Getting latest news
+   
     latest_news = get_Source_news()
     headlines = get_headlines()
     

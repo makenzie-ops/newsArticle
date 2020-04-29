@@ -14,7 +14,7 @@ def index():
     # Getting latest news
     latest_news = get_Source_news()
     print(latest_news)
-    headlines = get_headlines
+    headlines = get_headlines()
     print(headlines)
     
     title = 'Welcome to The best News Article Website Online'

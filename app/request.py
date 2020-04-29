@@ -3,23 +3,24 @@ from .models import Article, Category, Source , Headlines
 
 
 # Getting api key
-api_key =  None
+api_key = '2d7e55cf5e324b4c98a4a1ee81d40ffd'
 base_url= None
 
 article_url = None
 
 def configure_request(app):
     global api_key,base_url,article_url
-    api_key = app.config['NEWS_API_KEY']
+
+    api_key = '2d7e55cf5e324b4c98a4a1ee81d40ffd' 
+    
     base_url =app.config['SOURCES_API_BASE_URL']
-    article_url = app.config['ARTICLE_BASE_URL']
 
 
 def get_Source_news():
     '''
     Function that gets the json response to url request
     '''
-    get_source_url= base_url.format(api_key)
+    get_source_url= 'https://newsapi.org/v2/sources?apiKey={}'.format( api_key)
     # print(get_source_url)
     with urllib.request.urlopen(get_source_url) as url:
         get_sources_data = url.read()
